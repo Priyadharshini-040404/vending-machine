@@ -18,6 +18,7 @@ int main() {
             cout << "Alarm turned off." << endl;
             break; // End program
         }
+ 
         // Step 2: If not ready, check if late
         cout << "Will you be late? (y/n): ";
         cin >> late;
