@@ -46,7 +46,7 @@ int main() {
  
             if (power == 'P' || power == 'p') {
                 powerOn = false;
-                cout << "\nMachine Powered Off ❌" << endl;
+                cout << "\nMachine Powered Off " << endl;
             }
         }
     } else {
