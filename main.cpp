@@ -15,7 +15,7 @@ int main() {
  
     if (power == 'Y' || power == 'y') {
         powerOn = true;
-        cout << "\nMachine Powered ON ✅" << endl;
+        cout << "\nMachine Powered ON " << endl;
  
        // Loop until user powers off
         while (powerOn) {
@@ -27,6 +27,20 @@ int main() {
                 cout << "\nPreparing Latte..." << endl;
                 cout << "Adding frothed milk..." << endl;
                 cout << "Adding hot coffee..." << endl;
+            }
+            else if (choice == "Mocha" || choice == "mocha") {
+                cout << "\nPreparing Mocha..." << endl;
+                cout << "Adding chocolate powder..." << endl;
+                cout << "Adding frothed milk..." << endl;
+                cout << "Adding hot coffee..." << endl;
+            }
+            else if (choice == "Espresso" || choice == "espresso") {
+                cout << "\nPreparing Espresso..." << endl;
+                cout << "Adding hot coffee..." << endl;
+            }
+            else {
+                cout << "\nInvalid Selection ❌ Please try again." << endl;
+                continue;  // Skip termination and go back to selection
             }
         }
     }
