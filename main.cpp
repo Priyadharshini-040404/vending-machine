@@ -3,9 +3,9 @@
 using namespace std;
  
 int main() {
-    string choice;
     char power;
     bool powerOn = false;
+    string coffee;
  
     cout << "=== Coffee Machine Program ===" << endl;
  
@@ -15,51 +15,43 @@ int main() {
  
     if (power == 'Y' || power == 'y') {
         powerOn = true;
-        cout << "\nMachine Powered ON ✅" << endl;
+        cout << "\nMachine Powered On ✅" << endl;
  
-        // Loop until user powers off
         while (powerOn) {
-            // Coffee Selection
             cout << "\nSelect Coffee (Latte / Mocha / Espresso): ";
-            cin >> choice;
+            cin >> coffee;
  
-            if (choice == "Latte" || choice == "latte") {
-                cout << "\nPreparing Latte..." << endl;
-                cout << "Adding frothed milk..." << endl;
-                cout << "Adding hot coffee..." << endl;
+            if (coffee == "Latte" || coffee == "latte") {
+                cout << "Preparing Latte...\n";
+                cout << "Adding frothed milk...\n";
+                cout << "Adding hot coffee...\n";
             }
-            else if (choice == "Mocha" || choice == "mocha") {
-                cout << "\nPreparing Mocha..." << endl;
-                cout << "Adding chocolate powder..." << endl;
-                cout << "Adding frothed milk..." << endl;
-                cout << "Adding hot coffee..." << endl;
+            else if (coffee == "Mocha" || coffee == "mocha") {
+                cout << "Preparing Mocha...\n";
+                cout << "Adding chocolate powder...\n";
+                cout << "Adding frothed milk...\n";
+                cout << "Adding hot coffee...\n";
             }
-            else if (choice == "Espresso" || choice == "espresso") {
-                cout << "\nPreparing Espresso..." << endl;
-                cout << "Adding hot coffee..." << endl;
+            else if (coffee == "Espresso" || coffee == "espresso") {
+                cout << "Preparing Espresso...\n";
+                cout << "Adding hot coffee...\n";
             }
             else {
-                cout << "\nInvalid Selection  Please try again." << endl;
-                continue;  // Skip termination and go back to selection
+                cout << "Invalid selection ❌" << endl;
             }
  
-            // Termination check
-            cout << "\nDo you want to press power to turn OFF? (Y/N): ";
+            // 👇 This is the missing part in your code
+            cout << "\nPress 'P' to Power Off OR any other key to continue: ";
             cin >> power;
  
-            if (power == 'Y' || power == 'y') {
-                cout << "\nMachine Powered OFF ⏻" << endl;
+            if (power == 'P' || power == 'p') {
                 powerOn = false;
-            }
-            else {
-                cout << "\nReturning to Selection Process " << endl;
+                cout << "\nMachine Powered Off ❌" << endl;
             }
         }
-    }
-    else {
-        cout << "\nMachine not powered ON. Exiting..." << endl;
+    } else {
+        cout << "Power not turned on. Exiting program." << endl;
     }
  
-    cout << "\n=== Program Ended ===" << endl;
     return 0;
 }
