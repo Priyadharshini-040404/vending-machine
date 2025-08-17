@@ -15,7 +15,7 @@ int main() {
  
     if (power == 'Y' || power == 'y') {
         powerOn = true;
-        cout << "\nMachine Powered On ✅" << endl;
+        cout << "\nMachine Powered On " << endl;
  
         while (powerOn) {
             cout << "\nSelect Coffee (Latte / Mocha / Espresso): ";
@@ -37,10 +37,10 @@ int main() {
                 cout << "Adding hot coffee...\n";
             }
             else {
-                cout << "Invalid selection ❌" << endl;
+                cout << "Invalid selection " << endl;
             }
  
-            // 👇 This is the missing part in your code
+            //  This is the missing part in your code
             cout << "\nPress 'P' to Power Off OR any other key to continue: ";
             cin >> power;
  
