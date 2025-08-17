@@ -13,6 +13,15 @@ int main() {
             continue;
         }
  
+        if (score >= 80) {
+            cout << "Grade: A" << endl;
+        } else if (score >= 60) {
+            cout << "Grade: B" << endl;
+        } else if (score >= 50) {
+            cout << "Grade: C" << endl;
+        } else {
+            cout << "Fail" << endl;
+        }
         
     }
  
