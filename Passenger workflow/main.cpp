@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
- 
+
 // Function for valid yes/no input
 char askYesNo(const string& message) {
     char response;
@@ -14,7 +14,7 @@ char askYesNo(const string& message) {
         cin.ignore(10000, '\n');
     }
 }
- 
+
 // Function for valid item category selection
 int getCategory() {
     int option;
@@ -28,9 +28,14 @@ int getCategory() {
         cin.ignore(10000, '\n');
     }
 }
- 
+
 // Security screening process
 void performScreening() {
+    cout << "\n--- Security Screening ---\n";
+    cout << "Check-in.\n";
+    cout << "Baggage drop.\n";
+    cout << "Enter checking.\n";
+
     int category = getCategory();
     if (category == 1) {
         cout << "Hand search required. Return.\n";
@@ -40,7 +45,7 @@ void performScreening() {
         cout << "Give up restricted items above permitted limits. Return.\n";
     }
 }
- 
+
 // Permit verification
 bool checkEntryPermit() {
     char permission = askYesNo("Permit to enter country? (Y/N): ");
@@ -51,37 +56,38 @@ bool checkEntryPermit() {
         return false;
     }
 }
- 
+
 int main() {
     while (true) {
-        // Security check
+        // Step 1: Perform screening
         performScreening();
- 
-        // Journey simulation
+
+        // Step 2: Simulate flight journey after screening
+        cout << "\n--- Flight Journey ---\n";
         cout << "Immigration process...\n";
         cout << "Boarding flight...\n";
-        cout << "Flight departed...\n";
-        cout << "Flight landed.\n";
- 
-        // Permit check
-        if (!checkEntryPermit()) {
-            break;
-        }
- 
-        // Baggage claim
-        cout << "Claim baggage.\n";
- 
-        // Connection flight check
-        char hasConnection = askYesNo("Do you have a connecting flight? (Y/N): ");
+        cout << "Flight departs...\n";
+        cout << "Flight lands.\n";
+
+        // Step 3: Ask about connecting flight
+        char hasConnection = askYesNo("\nDo you have a connecting flight? (Y/N): ");
+
         if (hasConnection == 'n' || hasConnection == 'N') {
+            // If no connecting flight, check permit
+            if (!checkEntryPermit()) {
+                break; // End if permit denied
+            }
+
+            // Final step
+            cout << "Claim baggage.\n";
             cout << "Journey ends at baggage claim.\n";
             break;
         }
- 
+
+        // If yes connecting flight, repeat the process
         cout << "Proceeding to next connecting flight...\n";
     }
- 
-    cout << "Process finished.\n";
+
+    cout << "\nProcess finished.\n";
     return 0;
 }
- 
