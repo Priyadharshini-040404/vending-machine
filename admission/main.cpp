@@ -22,6 +22,20 @@ bool visaCheck() {
             std::cout << "Please apply for the visa before proceeding.\n";
             return false;
         }
+         }
+    return true;
+}
+ 
+void hostelCheck() {
+    char needH;
+    std::cout << "Do you need accommodation? (y/n): ";
+    std::cin >> needH;
+    needH = std::tolower(needH);
+    if (needH == 'y') {
+        std::cout << "Accommodation will be assigned to you.\n";
+    }
+}
+ 
 int main() {
     std::string studName;
     bool formStatus = false;
