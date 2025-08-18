@@ -27,7 +27,15 @@ int main() {
         cout << "Is it reusable? (y/n): ";
         cin >> choice;
  
-        
+        if (choice == 'y' || choice == 'Y') {
+            cout << "Process output: Reuse for other applications" << endl;
+        } else {
+            // Step 4: Check Recyclable
+            cout << "Is it recyclable? (y/n): ";
+            cin >> choice;
+ 
+            
+        }
     }
  
     cout << "---- Processing Completed ----" << endl;
