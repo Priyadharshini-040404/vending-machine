@@ -53,7 +53,19 @@ int main() {
     if (after7Days == 'y' || after7Days == 'Y') {
         cout << "Money transferred to Receiver Account.\n";
     } else {
-        
+        // Step 6: Sender review
+        char senderReview = askYesNo("Does Sender want to review? (Y/N): ");
+        if (senderReview == 'n' || senderReview == 'N') {
+            cout << " Transaction cancelled.\n";
+        } else {
+            // Step 7: Sender authorization
+            char senderAuth = askYesNo("Does Sender authorize transaction? (Y/N): ");
+            if (senderAuth == 'y' || senderAuth == 'Y') {
+                cout << "Money transferred to Receiver Account.\n";
+            } else {
+                cout << "Invalid transaction.\n";
+            }
+        }
     }
  
     cout << "\n=== End of Process ===\n";
