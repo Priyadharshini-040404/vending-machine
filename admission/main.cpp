@@ -9,6 +9,7 @@ void formCheck(bool &formOk) {
     chForm = std::tolower(chForm);
     formOk = (chForm == 'y');
 }
+ 
 bool visaCheck() {
     char needV, appliedV;
     std::cout << "Do you need a visa? (y/n): ";
@@ -22,7 +23,7 @@ bool visaCheck() {
             std::cout << "Please apply for the visa before proceeding.\n";
             return false;
         }
-         }
+    }
     return true;
 }
  
@@ -35,6 +36,7 @@ void hostelCheck() {
         std::cout << "Accommodation will be assigned to you.\n";
     }
 }
+ 
 void courseCheck() {
     char extraC;
     std::cout << "Do you have extra credits? (y/n): ";
@@ -43,6 +45,18 @@ void courseCheck() {
     if (extraC == 'y') {
         std::cout << "Please choose extra courses.\n";
     }
+}
+ 
+bool feeCheck() {
+    char paidF;
+    std::cout << "Have you paid the tuition fees? (y/n): ";
+    std::cin >> paidF;
+    paidF = std::tolower(paidF);
+    if (paidF == 'n') {
+        std::cout << "Please pay the tuition fees before proceeding.\n";
+        return false;
+    }
+    return true;
 }
  
 int main() {

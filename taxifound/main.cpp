@@ -10,6 +10,7 @@ int main() {
     char method;
     cout << "Order placed by (P)hone or (S)oftware? ";
     cin >> method;
+ 
     if (method == 'P' || method == 'p')
         cout << "Sending request to Call Centre Server...\n";
     else if (method == 'S' || method == 's')
@@ -18,7 +19,8 @@ int main() {
         cout << "Invalid option. Exiting...\n";
         return 0;
     }
-    / Step 2: Check pickup time
+ 
+    // Step 2: Check pickup time
     bool pickupWithin30 = false;
     while (!pickupWithin30) {
         // (Here we just simulate the condition check)
@@ -36,6 +38,7 @@ int main() {
             this_thread::sleep_for(chrono::seconds(1)); // simulate 1 min as 1 sec
         }
     }
+ 
     // Step 3: Finding taxi
     cout << "Finding taxi within 10 km of pickup location...\n";
  
@@ -56,5 +59,7 @@ int main() {
     // Step 4: Assign passenger
     cout << "Assigning passenger to driver...\n";
     cout << "End.\n";
+ 
     return 0;
 }
+ 
