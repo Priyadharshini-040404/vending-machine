@@ -16,6 +16,39 @@ void handleTicketCollection(const string& collectionMethod) {
         cout << "Check the letter box in 3 days for your ticket.\n";
     }
 }
+void ticketOptions() {
+    while (true) {
+        cout << "How do you want to collect your ticket?\n";
+        cout << "1. From machine\n2. Mail\nChoose (1 or 2): ";
+        int ticketChoice;
+        cin >> ticketChoice;
+        if (ticketChoice == 1) {
+            handleTicketCollection("machine");
+            break;
+        } else if (ticketChoice == 2) {
+            handleTicketCollection("mail");
+            break;
+        } else {
+            cout << "Invalid choice, please try again.\n";
+        }
+    }
+}
+
+void reserveSeat() {
+    cout << "Selecting seat for reservation...\n";
+}
+
+bool processReservation() {
+    while (true) {
+        if (getUserConfirmation("Do you need a seat reservation?")) {
+            reserveSeat();
+            ticketOptions();
+            return true;
+        } else {
+            cout << "You need to decide whether you want reservation or not.\n";
+        }
+    }
+}
 int main() {
     cout << "Starting Train Journey Reservation System\n";
     bool reservationStatus = processReservation();
