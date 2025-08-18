@@ -36,3 +36,12 @@ int main() {
     cout << "Customer collects goods.\n";
 
     char sellerConfirmation = promptYesNoInput("Did seller confirm customer received order? (Y/N): ");
+     if (sellerConfirmation == 'y' || sellerConfirmation == 'Y') {
+        cout << "Delivery confirmed.\n";
+    } else {
+        cout << "Seller did not confirm delivery.\n";
+    }
+
+    cout << "Order process complete.\n";
+    return 0;
+}
