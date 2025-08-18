@@ -71,7 +71,16 @@ void reachDestination() {
         }
     }
 }
-
+void beginBoarding(bool reservationConfirmed) {
+    if (reservationConfirmed) {
+        cout << "Looking for assigned seat...\n";
+    } else {
+        cout << "Looking for unassigned seat...\n";
+    }
+    bool hasDiscount = getUserConfirmation("Is your ticket discounted?");
+    verifyTicket(hasDiscount);
+    reachDestination();
+}
 int main() {
     cout << "Starting Train Journey Reservation System\n";
     bool reservationStatus = processReservation();
