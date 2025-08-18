@@ -28,7 +28,17 @@ int main() {
         }
     }
  
-    
+    // Step 3: 5 minutes before gate closes
+    cout << "\n5 minutes before gate closes." << endl;
+ 
+    cout << "Are all passengers aboard? (y/n): ";
+    cin >> choice;
+ 
+    if (choice == 'y' || choice == 'Y') {
+        cout << "Announcement: All passengers are on board." << endl;
+        cout << "Waiting 5 minutes..." << endl;
+        cout << "Gate closed." << endl;
+    } 
  
     cout << "---- End ----" << endl;
     return 0;
