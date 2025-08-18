@@ -49,6 +49,29 @@ bool processReservation() {
         }
     }
 }
+void verifyTicket(bool hasDiscount) {
+    cout << "Ticket checked.\n";
+    if (hasDiscount) {
+        if (getUserConfirmation("Show valid documentation for discounted ticket?")) {
+            cout << "Documentation accepted.\n";
+        } else {
+            cout << "Valid documentation required. Returning to ticket check.\n";
+            verifyTicket(hasDiscount);
+        }
+    }
+}
+
+void reachDestination() {
+    while (true) {
+        if (getUserConfirmation("Have you arrived at your destination?")) {
+            cout << "Leaving the train. Journey complete.\n";
+            break;
+        } else {
+            cout << "Keep going until you arrive at your destination.\n";
+        }
+    }
+}
+
 int main() {
     cout << "Starting Train Journey Reservation System\n";
     bool reservationStatus = processReservation();
