@@ -38,5 +38,19 @@ int main() {
             }
         }
     }
+    // -------- Hiring Process --------
+    cout << "Arrange candidate meeting\n";
+    cout << "Conduct pre-interview\n";
+    cout << "Setup interview questions\n";
+    cout << "Conduct interview\n";
+ 
+    cout << "Does candidate have good references? (y/n): ";
+    cin >> choice;
+ 
+    if (choice == 'n' || choice == 'N') {
+        cout << "Candidate not selected\n";
+        cout << "End of program\n";
+        return 0;
+    }
     return 0;
 }
