@@ -35,6 +35,15 @@ void hostelCheck() {
         std::cout << "Accommodation will be assigned to you.\n";
     }
 }
+void courseCheck() {
+    char extraC;
+    std::cout << "Do you have extra credits? (y/n): ";
+    std::cin >> extraC;
+    extraC = std::tolower(extraC);
+    if (extraC == 'y') {
+        std::cout << "Please choose extra courses.\n";
+    }
+}
  
 int main() {
     std::string studName;
