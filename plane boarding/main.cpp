@@ -38,7 +38,11 @@ int main() {
         cout << "Announcement: All passengers are on board." << endl;
         cout << "Waiting 5 minutes..." << endl;
         cout << "Gate closed." << endl;
-    } 
+    } else {
+        cout << "Announcement: Final boarding call for passengers." << endl;
+        cout << "Waiting 5 minutes..." << endl;
+        cout << "Gate closed." << endl;
+    }
  
     cout << "---- End ----" << endl;
     return 0;
