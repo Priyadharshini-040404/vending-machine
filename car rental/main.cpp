@@ -1,141 +1,226 @@
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+ 
 using namespace std;
-
-// Predefined passwords
-const string storedLoginCode = "user123";
-const string storedNewPassword = "newpass456";
-
-// Function definitions
-
-bool verifyUserIdentity() {
-    char userResponse;
-    cout << "User Identification (U)? (Y/N): ";
-    cin >> userResponse;
-    return (userResponse == 'Y' || userResponse == 'y');
-}
-
-bool checkAdminStatus() {
-    char userResponse;
-    cout << "If Admin? (Y/N): ";
-    cin >> userResponse;
-    return (userResponse == 'Y' || userResponse == 'y');
-}
-
-void displayAdminDashboard() {
-    cout << "Admin Login (A)...\n";
-    cout << "Admin Dashboard (AD)...\n";
-    cout << "Update the databases.\n";
-    cout << "Answer Queries.\n";
-    cout << "Logout.\n";
-}
-
-bool checkUserRegistration() {
-    char userResponse;
-    cout << "Are you a registered user? (Y/N): ";
-    cin >> userResponse;
-    return (userResponse == 'Y' || userResponse == 'y');
-}
-
-bool performUserLogin() {
-    string enteredPassword;
-    cout << "Login (L): Enter password: ";
-    cin >> enteredPassword;
-    if (enteredPassword == storedLoginCode) {
-        return true;
-    } else {
-        cout << "Incorrect password.\n";
-        return false;
+ 
+struct User {
+    string username;
+    string password;
+    string role;
+};
+ 
+ 
+ 
+char getYN(string prompt) {
+    char choice;
+    while (true) {
+        cout << prompt << " (Y/N): ";
+        cin >> choice;
+        choice = toupper(choice);
+        if (choice == 'Y' || choice == 'N') return choice;
+        cout << "Invalid input. Please enter Y or N only.\n";
     }
 }
-
-bool verifyUserPassword() {
-    string enteredPassword;
-    cout << "Password verification (PV): Enter password: ";
-    cin >> enteredPassword;
-    if (enteredPassword == storedLoginCode) {
-        return true;
-    } else {
-        cout << "Password incorrect.\n";
-        return false;
+ 
+vector<User> loadUsers(const string& filename) {
+    vector<User> users;
+    ifstream file(filename);
+    if (!file.is_open()) return users;
+ 
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string u, p, r;
+        getline(ss, u, ',');
+        getline(ss, p, ',');
+        getline(ss, r, ',');
+        if (!u.empty())
+            users.push_back({u, p, r});
+    }
+    return users;
+}
+ 
+void saveUsers(const string& filename, const vector<User>& users) {
+    ofstream file(filename, ios::trunc);
+    for (auto& user : users) {
+        file << user.username << "," << user.password << "," << user.role << "\n";
     }
 }
-
-bool processNewPasswordRequest() {
-    char userResponse;
-    cout << "Request new password (NP)? (Y/N): ";
-    cin >> userResponse;
-    if (userResponse == 'Y' || userResponse == 'y') {
-        string enteredNewPassword;
-        cout << "Enter new password: ";
-        cin >> enteredNewPassword;
-        if (enteredNewPassword == storedNewPassword) {
-            cout << "New password accepted.\n";
-            return true;
-        } else {
-            cout << "New password invalid.\n";
-            return false;
-        }
+ 
+bool userExists(const vector<User>& users, const string& username) {
+    for (auto& u : users) {
+        if (u.username == username) return true;
     }
     return false;
 }
-
-void initiateVehicleRental() {
-    char userResponse;
-    cout << "Search for the vehicle? (Y/N): ";
-    cin >> userResponse;
-    if (userResponse == 'Y' || userResponse == 'y') {
-        cout << "Rent Vehicle (RV)...\n";
-    } else {
-        cout << "Return (A)\n";
+ 
+User* findUser(vector<User>& users, const string& username) {
+    for (auto& u : users) {
+        if (u.username == username) return &u;
     }
+    return nullptr;
 }
-
-void processPayment() {
-    cout << "Make payments.\n";
+ 
+ 
+ 
+void updateCarLibrary() {
+    cout << "Car library updated.\n";
 }
-
-// Main function
-
-int main() {
-    cout << "Start\n";
-
-    if (!verifyUserIdentity()) {
-        cout << "End\n";
-        return 0;
+ 
+void answerQueries() {
+    cout << "Queries answered.\n";
+}
+ 
+void showDashboard() {
+    cout << "Displaying dashboard...\n";
+}
+ 
+void logout() {
+    cout << "Logout successful.\n";
+}
+ 
+ 
+bool registerUser(vector<User>& users, const string& filename) {
+    string username, password;
+    cout << "Enter new username: ";
+    cin >> username;
+    if (userExists(users, username)) {
+        cout << "Username already exists. Returning to login.\n";
+        return false;
     }
-
-    if (checkAdminStatus()) {
-        displayAdminDashboard();
-        cout << "Return (Admin Dashboard)\n";
-        cout << "End\n";
-        return 0;
+    cout << "Enter new password: ";
+    cin >> password;
+ 
+    users.push_back({username, password, "user"});
+    saveUsers(filename, users);
+    cout << "User registered successfully.\n";
+    return true;
+}
+ 
+bool forgotPassword(vector<User>& users, const string& filename) {
+    string username;
+    cout << "Enter your username to reset password: ";
+    cin >> username;
+ 
+    User* user = findUser(users, username);
+    if (!user) {
+        cout << "Username not found.\n";
+        return false;
     }
-
-    if (!checkUserRegistration()) {
-        cout << "Sign in (S)\n";
-        cout << "End\n";
-        return 0;
-    }
-
-    if (!performUserLogin()) {
-        cout << "Return (Login Failed)\n";
-        cout << "End\n";
-        return 0;
-    }
-
-    if (!verifyUserPassword()) {
-        if (!processNewPasswordRequest()) {
-            cout << "Return\n";
-            cout << "End\n";
-            return 0;
+ 
+    string newPass;
+    cout << "Enter new password: ";
+    cin >> newPass;
+    user->password = newPass;
+    saveUsers(filename, users);
+    cout << "Password updated successfully.\n";
+    return true;
+}
+ 
+bool loginUser(vector<User>& users, const string& filename, const string& role) {
+    string username, password;
+ 
+    while (true) {
+        cout << "Enter username: ";
+        cin >> username;
+        cout << "Enter password: ";
+        cin >> password;
+ 
+        User* user = findUser(users, username);
+        if (user && user->password == password && user->role == role) {
+            cout << "Login successful.\n";
+            return true;
+        } else {
+            cout << "Invalid username or password.\n";
+            char reset = getYN("Forgot password?");
+            if (reset == 'Y') {
+                if (forgotPassword(users, filename)) {
+                    cout << "Please try logging in again.\n";
+                    continue; // Retry login after password reset
+                }
+            }
+ 
+            char retry = getYN("Do you want to try logging in again?");
+            if (retry == 'N') return false;
         }
     }
-
-    initiateVehicleRental();
-
-    processPayment();
-
-    cout << "End\n";
+}
+ 
+ 
+void selectVehicleAndPay() {
+    cout << "Selecting vehicle...\n";
+    char found = getYN("Did you find the desired vehicle?");
+    if (found == 'Y') {
+        cout << "Proceeding to payment...\n";
+        cout << "Payment successful! Vehicle rented.\n";
+    } else {
+        cout << "Returning to dashboard.\n";
+        showDashboard();
+    }
+}
+ 
+ 
+void adminFunction(vector<User>& users, const string& filename) {
+    if (loginUser(users, filename, "admin")) {
+        showDashboard();
+        char action;
+        do {
+            cout << "Choose function: (U)pdate Car Library, (A)nswer Queries, (L)ogout: ";
+            cin >> action;
+            action = toupper(action);
+            if (action == 'U') updateCarLibrary();
+            else if (action == 'A') answerQueries();
+            else if (action == 'L') logout();
+            else cout << "Invalid choice. Try again.\n";
+        } while (action != 'L');
+    } else {
+        cout << "Admin login failed.\n";
+    }
+}
+ 
+void userFunction(vector<User>& users, const string& filename) {
+    char isRegistered = getYN("Are you a registered user?");
+    if (isRegistered == 'Y') {
+        if (loginUser(users, filename, "user")) {
+            showDashboard();
+            selectVehicleAndPay();
+            logout();
+        }
+    } else {
+        if (registerUser(users, filename)) {
+            if (loginUser(users, filename, "user")) {
+                showDashboard();
+                selectVehicleAndPay();
+                logout();
+            }
+        }
+    }
+}
+ 
+void userIdentification(vector<User>& users, const string& filename) {
+    char isAdmin = getYN("Are you an admin?");
+    if (isAdmin == 'Y') {
+        adminFunction(users, filename);
+    } else {
+        userFunction(users, filename);
+    }
+}
+ 
+ 
+ 
+int main() {
+    const string filename = "user.csv";
+    vector<User> users = loadUsers(filename);
+ 
+    if (!findUser(users, "admin")) {
+        users.push_back({"admin", "admin123", "admin"});
+        saveUsers(filename, users);
+    }
+ 
+    userIdentification(users, filename);
     return 0;
 }
