@@ -29,7 +29,6 @@ int main() {
             cout << "\nUnauthorized access! Alerting user..." << endl;
         }
     }
- 
     cout << "---- End ----" << endl;
     return 0;
 }
