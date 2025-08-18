@@ -36,5 +36,25 @@ int main() {
             this_thread::sleep_for(chrono::seconds(1)); // simulate 1 min as 1 sec
         }
     }
+    // Step 3: Finding taxi
+    cout << "Finding taxi within 10 km of pickup location...\n";
+ 
+    bool taxiFound = false;
+    while (!taxiFound) {
+        char ans;
+        cout << "Taxi found? (y/n): ";
+        cin >> ans;
+ 
+        if (ans == 'y' || ans == 'Y') {
+            taxiFound = true;
+        } else {
+            cout << "No taxi yet. Wait 1 minute and check again...\n";
+            this_thread::sleep_for(chrono::seconds(1)); // simulate wait
+        }
+    }
+ 
+    // Step 4: Assign passenger
+    cout << "Assigning passenger to driver...\n";
+    cout << "End.\n";
     return 0;
 }
