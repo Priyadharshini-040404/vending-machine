@@ -52,5 +52,20 @@ int main() {
         cout << "End of program\n";
         return 0;
     }
+    cout << "Select candidate\n";
+    cout << "Evaluate pay rate\n";
+    cout << "Send offer letter\n";
+ 
+    cout << "Did candidate confirm offer? (y/n): ";
+    cin >> choice;
+ 
+    if (choice == 'n' || choice == 'N') {
+        cout << "Candidate not selected\n";
+        cout << "End of program\n";
+        return 0;
+    }
+ 
+    cout << "Hire candidate\n";
+    cout << "End of program\n";
     return 0;
 }
