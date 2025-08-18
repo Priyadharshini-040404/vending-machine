@@ -1,35 +1,50 @@
 #include <iostream>
 #include <string>
 using namespace std;
- 
-int main() {
-    string correctUser = "admin";     // Predefined username
-    string correctPass = "12345";     // Predefined password
-    string user, pass;
-    int attempts;
- 
-    cout << "Enter number of attempts already made: ";
-    cin >> attempts;
- 
-    // Step 1: Check if user already has 5 attempts
-    if (attempts >= 5) {
-        cout << "\nAccount locked due to 5 failed attempts!" << endl;
-        cout << "Alerting user..." << endl;
+
+bool isAccountLocked(int failedAttempts) {
+    if (failedAttempts >= 5) {
+        cout << "Account locked due to 5 unsuccessful attempts.\n";
+        cout << "Alert: Please contact support.\n";
+        return true;
+    }
+    return false;
+}
+
+bool validateLogin() {
+    const string expectedUser = "admin";    // Predefined username
+    const string expectedPass = "1234";     // Predefined password
+
+    string inputUser, inputPass;
+    cout << "Enter username: ";
+    cin >> inputUser;
+    cout << "Enter password: ";
+    cin >> inputPass;
+
+    if (inputUser == expectedUser && inputPass == expectedPass) {
+        cout << "Access granted.\n";
+        return true;
     } else {
-        // Step 2: Allow login
-        cout << "\nEnter username: ";
-        cin >> user;
-        cout << "Enter password: ";
-        cin >> pass;
- 
-        // Step 3: Check authorization
-        if (user == correctUser && pass == correctPass) {
-            cout << "\nLogin successful! Access granted." << endl;
-        } else {
-            cout << "\nUnauthorized access! Alerting user..." << endl;
+        cout << "Invalid credentials.\n";
+        return false;
+    }
+}
+
+int main() {
+    int loginAttempts = 0;
+    bool isAuthenticated = false;
+
+    while (!isAuthenticated) {
+        if (isAccountLocked(loginAttempts)) {
+            break;
+        }
+
+        isAuthenticated = validateLogin();
+
+        if (!isAuthenticated) {
+            loginAttempts++;
         }
     }
-    cout << "---- End ----" << endl;
+
     return 0;
 }
- 
