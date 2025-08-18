@@ -66,6 +66,7 @@ int main() {
     }
  
     cout << "Hire candidate\n";
-    cout << "End of program\n";
+    cout << "End of program\n";y
+    
     return 0;
 }
