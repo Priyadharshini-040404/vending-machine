@@ -1,18 +1,28 @@
 #include <iostream>
 using namespace std;
- 
+
 int main() {
     int score;
- 
+
     while (true) {
         cout << "Enter score (0-100): ";
         cin >> score;
- 
+
+        // Check if input is numeric
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a numeric value." << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+
+        // Check if score in valid range
         if (score < 0 || score > 100) {
             cout << "Invalid score. Please enter a value between 0 and 100." << endl;
             continue;
         }
- 
+
+        // Print grade based on score
         if (score >= 80) {
             cout << "Grade: A" << endl;
         } else if (score >= 60) {
@@ -22,10 +32,11 @@ int main() {
         } else {
             cout << "Fail" << endl;
         }
-        break;
+
+        break; // End loop and program after valid grade output
     }
- 
+
     cout << "End" << endl;
- 
+
     return 0;
 }
