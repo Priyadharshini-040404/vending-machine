@@ -71,6 +71,18 @@ bool trafficCrossing() {
         cout << "Wait, car approaching from right.\n";
         return false;
     }
+    // Function for Crossing process
+bool crossing() {
+    char available;
+    cout << "Is crossing available? (y/n): ";
+    cin >> available;
+    if (available == 'y' || available == 'Y') {
+        return true;
+    } else {
+        cout << "Walk away.\n";
+        return false;
+    }
+}
     cout << "Safe to cross.\n";
     return true;
 }
