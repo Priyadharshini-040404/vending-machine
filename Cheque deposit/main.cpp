@@ -47,8 +47,13 @@ int main() {
     cout << "Cheque Number    : " << chequeNumber << endl;
     cout << "Cheque Value     : " << chequeValue << endl;
  
-    
-        }
+    // Step 5: Waiting period
+    char after7Days = askYesNo("\nHas it been 7 days? (Y/N): ");
+ 
+    if (after7Days == 'y' || after7Days == 'Y') {
+        cout << "Money transferred to Receiver Account.\n";
+    } else {
+        
     }
  
     cout << "\n=== End of Process ===\n";
