@@ -9,6 +9,19 @@ void formCheck(bool &formOk) {
     chForm = std::tolower(chForm);
     formOk = (chForm == 'y');
 }
+bool visaCheck() {
+    char needV, appliedV;
+    std::cout << "Do you need a visa? (y/n): ";
+    std::cin >> needV;
+    needV = std::tolower(needV);
+    if (needV == 'y') {
+        std::cout << "Have you applied for the visa? (y/n): ";
+        std::cin >> appliedV;
+        appliedV = std::tolower(appliedV);
+        if (appliedV == 'n') {
+            std::cout << "Please apply for the visa before proceeding.\n";
+            return false;
+        }
 int main() {
     std::string studName;
     bool formStatus = false;
