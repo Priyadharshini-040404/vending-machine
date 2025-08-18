@@ -19,5 +19,24 @@ int main() {
     // -------- Suitable Candidate Check Sequence --------
     cout << "Is there a suitable candidate? (y/n): ";
     cin >> choice;
+    if (choice == 'n' || choice == 'N') {
+        cout << "Review existing resumes\n";
+        cout << "Is there a suitable candidate now? (y/n): ";
+        cin >> choice;
+ 
+        if (choice == 'n' || choice == 'N') {
+            cout << "Develop recruitment plan\n";
+            cout << "Place advertisement\n";
+            cout << "Collect resumes\n";
+            cout << "Any suitable candidate? (y/n): ";
+            cin >> choice;
+ 
+            if (choice == 'n' || choice == 'N') {
+                cout << "Candidate not selected\n";
+                cout << "End of program\n";
+                return 0;
+            }
+        }
+    }
     return 0;
 }
