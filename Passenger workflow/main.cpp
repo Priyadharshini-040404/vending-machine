@@ -41,7 +41,17 @@ void performScreening() {
     }
 }
  
-
+// Permit verification
+bool checkEntryPermit() {
+    char permission = askYesNo("Permit to enter country? (Y/N): ");
+    if (permission == 'y' || permission == 'Y') {
+        return true;
+    } else {
+        cout << "Send back to originating country. Return.\n";
+        return false;
+    }
+}
+ 
 int main() {
     while (true) {
         // Security check
