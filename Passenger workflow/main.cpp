@@ -29,8 +29,19 @@ int getCategory() {
     }
 }
  
-
+// Security screening process
+void performScreening() {
+    int category = getCategory();
+    if (category == 1) {
+        cout << "Hand search required. Return.\n";
+    } else if (category == 2) {
+        cout << "Give up dangerous goods. Return.\n";
+    } else if (category == 3) {
+        cout << "Give up restricted items above permitted limits. Return.\n";
+    }
+}
  
+
 int main() {
     while (true) {
         // Security check
