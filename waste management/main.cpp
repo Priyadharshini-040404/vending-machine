@@ -34,7 +34,11 @@ int main() {
             cout << "Is it recyclable? (y/n): ";
             cin >> choice;
  
-            
+            if (choice == 'y' || choice == 'Y') {
+                cout << "Process output: Recycle for other applications" << endl;
+            } else {
+                cout << "Process output: Landfill" << endl;
+            }
         }
     }
  
