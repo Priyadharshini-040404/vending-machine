@@ -22,7 +22,12 @@ int main() {
         cout << "Enter password: ";
         cin >> pass;
  
-       
+        // Step 3: Check authorization
+        if (user == correctUser && pass == correctPass) {
+            cout << "\nLogin successful! Access granted." << endl;
+        } else {
+            cout << "\nUnauthorized access! Alerting user..." << endl;
+        }
     }
  
     cout << "---- End ----" << endl;
