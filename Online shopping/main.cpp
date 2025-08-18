@@ -14,3 +14,25 @@ char promptYesNoInput(const string& questionText) {
         cin.ignore(10000, '\n');
     }
 }
+int main() {
+    cout << "Order placed.\n";
+
+    char anotherItemChoice;
+    do {
+        cout << "\nProcessing an item...\n";
+        char warehouseStatus = promptYesNoInput("Is the item in the warehouse? (Y/N): ");
+
+        if (warehouseStatus == 'y' || warehouseStatus == 'Y') {
+            cout << "Pack with other orders in the warehouse.\n";
+        } else {
+            cout << "Contact seller.\n";
+            cout << "Seller sends goods to customer.\n";
+        }
+
+        anotherItemChoice = promptYesNoInput("Do you want to process another item? (Y/N): ");
+    } while (anotherItemChoice == 'y' || anotherItemChoice == 'Y');
+
+    cout << "\nSend warehouse goods to customer.\n";
+    cout << "Customer collects goods.\n";
+
+    char sellerConfirmation = promptYesNoInput("Did seller confirm customer received order? (Y/N): ");
