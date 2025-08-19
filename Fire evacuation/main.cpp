@@ -1,5 +1,42 @@
 #include <iostream>
+#include <string>
 using namespace std;
+
+// Get and validate Y/y/N/n inputs
+char getYesNo(const string& prompt) {
+    string input;
+    while (true) {
+        cout << prompt;
+        cin >> input;
+
+        if (input.length() == 1 && 
+            (input[0] == 'y' || input[0] == 'Y' || input[0] == 'n' || input[0] == 'N')) {
+            return input[0];
+        }
+
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input. Please enter Y/y or N/n only.\n";
+    }
+}
+
+// Get and validate integer input from list of options
+int getMenuChoice(const string& prompt, int min, int max) {
+    int choice;
+    while (true) {
+        cout << prompt;
+        cin >> choice;
+
+        if (cin.fail() || choice < min || choice > max) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid choice. Please enter a number between " << min << " and " << max << ".\n";
+        } else {
+            cin.ignore(10000, '\n');  // Clean up extra input
+            return choice;
+        }
+    }
+}
 
 void packEmergencyItems() {
     cout << "Bring wallet, keys, phone, wet towels.\n";
@@ -31,9 +68,7 @@ void evaluateUpperPath();
 
 void moveUpward() {
     cout << "Go upstairs and reach balcony.\n";
-    char atBalcony;
-    cout << "Did you reach the balcony? (y/n): ";
-    cin >> atBalcony;
+    char atBalcony = getYesNo("Did you reach the balcony? (y/n): ");
     if (atBalcony == 'y' || atBalcony == 'Y') {
         cout << "Wait for help.\n";
     } else {
@@ -42,9 +77,7 @@ void moveUpward() {
 }
 
 void evaluateUpperPath() {
-    char heavySmoke;
-    cout << "Is there strong smoke or fire? (y/n): ";
-    cin >> heavySmoke;
+    char heavySmoke = getYesNo("Is there strong smoke or fire? (y/n): ");
     if (heavySmoke == 'y' || heavySmoke == 'Y') {
         enterSafeZone();
     } else {
@@ -56,9 +89,7 @@ void reassessEscapeOption();
 
 void tryEscapeRoute() {
     cout << "Go downstairs and get out of the building.\n";
-    char escapedSafely;
-    cout << "Did you successfully leave the building? (y/n): ";
-    cin >> escapedSafely;
+    char escapedSafely = getYesNo("Did you successfully leave the building? (y/n): ");
     if (escapedSafely == 'y' || escapedSafely == 'Y') {
         cout << "You have safely escaped the building! Stay safe.\n";
     } else {
@@ -68,9 +99,7 @@ void tryEscapeRoute() {
 
 void reassessEscapeOption() {
     cout << "Reason-1: Cannot exit down due to fire/strong smoke.\n";
-    char sawSmokeWhileExiting;
-    cout << "Do you see strong smoke or fire while escaping? (y/n): ";
-    cin >> sawSmokeWhileExiting;
+    char sawSmokeWhileExiting = getYesNo("Do you see strong smoke or fire while escaping? (y/n): ");
     if (sawSmokeWhileExiting == 'y' || sawSmokeWhileExiting == 'Y') {
         moveUpward();
     } else {
@@ -79,9 +108,7 @@ void reassessEscapeOption() {
 }
 
 void examineExitDoor() {
-    char doorCheck;
-    cout << "Is the door hot or is strong smoke present? (y/n): ";
-    cin >> doorCheck;
+    char doorCheck = getYesNo("Is the door hot or is strong smoke present? (y/n): ");
     if (doorCheck == 'y' || doorCheck == 'Y') {
         followRescueInstructions();
     } else {
@@ -96,33 +123,33 @@ void handleDetectorAlert() {
 }
 
 void handleManualDetection() {
-    char fireInsideBuilding;
-    cout << "Is the place of fire IN the building? (y/n): ";
-    cin >> fireInsideBuilding;
+    char fireInsideBuilding = getYesNo("Is the place of fire IN the building? (y/n): ");
     if (fireInsideBuilding == 'n' || fireInsideBuilding == 'N') {
         alertFireServices();
-        return;
-    } else if (fireInsideBuilding == 'y' || fireInsideBuilding == 'Y') {
+    } else {
         packEmergencyItems();
         activateFireAlarm();
         examineExitDoor();
-    } else {
-        cout << "Invalid input.\n";
     }
 }
 
 int main() {
     cout << "*** FIRE EVACUATION PLAN ***\n";
-    cout << "How was the fire detected?\n";
-    cout << "1. You see fire/smoke\n2. Someone sees fire/smoke\n3. Smoke detector\nChoose (1/2/3): ";
-    int detectionMode;
-    cin >> detectionMode;
+
+    int detectionMode = getMenuChoice(
+        "How was the fire detected?\n"
+        "1. You see fire/smoke\n"
+        "2. Someone sees fire/smoke\n"
+        "3. Smoke detector\n"
+        "Choose (1/2/3): ",
+        1, 3
+    );
+
     if (detectionMode == 3) {
         handleDetectorAlert();
-    } else if (detectionMode == 1 || detectionMode == 2) {
-        handleManualDetection();
     } else {
-        cout << "Invalid input.\n";
+        handleManualDetection();
     }
+
     return 0;
 }
