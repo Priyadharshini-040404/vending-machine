@@ -36,7 +36,7 @@ int main() {
  
     if (choice == 'y' || choice == 'Y') {
         cout << "Announcement: All passengers are on board." << endl;
-        cout << "Waiting 5 minutes..." << endl;
+        
         cout << "Gate closed." << endl;
     } else {
         cout << "Announcement: Final boarding call for passengers." << endl;
