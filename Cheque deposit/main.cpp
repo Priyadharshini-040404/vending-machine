@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
- 
+
 // Function for Yes/No validation
 char askYesNo(const string& msg) {
     char response;
@@ -15,59 +15,67 @@ char askYesNo(const string& msg) {
         cin.ignore(10000, '\n');
     }
 }
- 
+
 int main() {
     cout << "=== Cheque Transaction System ===\n";
- 
+
     // Step 1: Insert card & enter account number
     string senderAccount;
     cout << "Insert bank card into machine.\n";
     cout << "Enter Sender Bank Account Number: ";
     cin >> senderAccount;
- 
+
     // Step 2: Enter receiver account number
     string receiverAccount;
     cout << "Enter Receiver Bank Account Number: ";
     cin >> receiverAccount;
- 
+
     // Step 3: Enter cheque number
     string chequeNumber;
     cout << "Enter Cheque Number: ";
     cin >> chequeNumber;
- 
+
     // Step 4: Enter value
     double chequeValue;
     cout << "Enter Cheque Value: ";
     cin >> chequeValue;
- 
+
     // Summary before processing
     cout << "\n--- Cheque Details ---\n";
     cout << "Sender Account   : " << senderAccount << endl;
     cout << "Receiver Account : " << receiverAccount << endl;
     cout << "Cheque Number    : " << chequeNumber << endl;
     cout << "Cheque Value     : " << chequeValue << endl;
- 
-    // Step 5: Waiting period
-    char after7Days = askYesNo("\nHas it been 7 days? (Y/N): ");
- 
-    if (after7Days == 'y' || after7Days == 'Y') {
-        cout << "Money transferred to Receiver Account.\n";
-    } else {
-        // Step 6: Sender review
-        char senderReview = askYesNo("Does Sender want to review? (Y/N): ");
-        if (senderReview == 'n' || senderReview == 'N') {
-            cout << " Transaction cancelled.\n";
+
+    // Step 5 onwards in loop
+    bool transactionCompleted = false;
+
+    while (!transactionCompleted) {
+        char after7Days = askYesNo("\nHas it been 7 days? (Y/N): ");
+
+        if (after7Days == 'y' || after7Days == 'Y') {
+            cout << "Money transferred to Receiver Account.\n";
+            transactionCompleted = true;
         } else {
-            // Step 7: Sender authorization
-            char senderAuth = askYesNo("Does Sender authorize transaction? (Y/N): ");
-            if (senderAuth == 'y' || senderAuth == 'Y') {
-                cout << "Money transferred to Receiver Account.\n";
+            // Step 6: Sender review
+            char senderReview = askYesNo("Does Sender want to review? (Y/N): ");
+            if (senderReview == 'n' || senderReview == 'N') {
+                // Go back to 7-day check (loop continues)
+                cout << "Review declined. Rechecking 7-day period...\n";
             } else {
-                cout << "Invalid transaction.\n";
+                // Step 7: Sender authorization
+                char senderAuth = askYesNo("Does Sender authorize transaction? (Y/N): ");
+                if (senderAuth == 'y' || senderAuth == 'Y') {
+                    cout << "Money transferred to Receiver Account.\n";
+                    transactionCompleted = true;
+                } else {
+                    cout << "Invalid transaction.\n";
+                    transactionCompleted = true;
+                }
             }
         }
     }
- 
+
     cout << "\n=== End of Process ===\n";
     return 0;
 }
