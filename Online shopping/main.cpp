@@ -1,47 +1,68 @@
 #include <iostream>
+#include <string>
+#include <limits>
+
 using namespace std;
 
-// Helper function for robust Y/y/N/n input
-char promptYesNoInput(const string& questionText) {
-    char userReply;
+// Function to get validated yes/no input
+char getYesNo(const string &prompt) {
     while (true) {
-        cout << questionText;
-        cin >> userReply;
-        if (userReply == 'y' || userReply == 'Y' || userReply == 'n' || userReply == 'N')
-            return userReply;
-        cout << "Invalid input. Please enter Y/y or N/n only.\n";
-        cin.clear();
-        cin.ignore(10000, '\n');
+        cout << prompt;
+        string input;
+        getline(cin, input);
+
+        if (input.size() == 1 &&
+            (input[0] == 'y' || input[0] == 'Y' || input[0] == 'n' || input[0] == 'N')) {
+            return input[0];
+        }
+        cerr << "Invalid input! Please enter only 'y' or 'n'.\n";
     }
 }
+
+// Function to get validated positive integer input
+int getPositiveInt(const string &prompt) {
+    int value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+
+        if (cin.fail() || value <= 0) {
+            cerr << "Invalid input! Please enter a positive number.\n";
+            cin.clear(); // clear error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input
+        } else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear remaining buffer
+            return value;
+        }
+    }
+}
+
 int main() {
+    cout << "Start\n";
     cout << "Order placed.\n";
 
-    char anotherItemChoice;
-    do {
-        cout << "\nProcessing an item...\n";
-        char warehouseStatus = promptYesNoInput("Is the item in the warehouse? (Y/N): ");
+    int itemCount = getPositiveInt("Enter number of items in the order: ");
 
-        if (warehouseStatus == 'y' || warehouseStatus == 'Y') {
-            cout << "Pack with other orders in the warehouse.\n";
+    // Process each item
+    for (int i = 1; i <= itemCount; i++) {
+        cout << "\nChecking item " << i << "...\n";
+
+        char inWarehouse = getYesNo("Is item " + to_string(i) + " in warehouse? (y/n): ");
+
+        if (inWarehouse == 'y' || inWarehouse == 'Y') {
+            cout << "Packed with other orders in warehouse.\n";
         } else {
-            cout << "Contact seller.\n";
-            cout << "Seller sends goods to customer.\n";
+            cout << "Contacting seller to ship item " << i << "...\n";
+            cout << "Seller sends item " << i << " to customer.\n";
         }
-
-        anotherItemChoice = promptYesNoInput("Do you want to process another item? (Y/N): ");
-    } while (anotherItemChoice == 'y' || anotherItemChoice == 'Y');
-
-    cout << "\nSend warehouse goods to customer.\n";
-    cout << "Customer collects goods.\n";
-
-    char sellerConfirmation = promptYesNoInput("Did seller confirm customer received order? (Y/N): ");
-     if (sellerConfirmation == 'y' || sellerConfirmation == 'Y') {
-        cout << "Delivery confirmed.\n";
-    } else {
-        cout << "Seller did not confirm delivery.\n";
     }
 
-    cout << "Order process complete.\n";
+    // After all items processed
+    cout << "\nAll items processed.\n";
+    cout << "Send warehouse goods to customer.\n";
+    cout << "Customer collects goods.\n";
+    cout << "Seller confirms customer received order.\n";
+    cout << "End\n";
+
     return 0;
 }
